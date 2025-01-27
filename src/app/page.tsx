@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
+// export const dynamic = "force-dynamic"; // disabling caching features -> dynamic route
+// export const revalidate = 0;
+
 export default async function Home() {
   const snippets = await prisma.snippet.findMany();
   // if()
@@ -22,7 +25,7 @@ export default async function Home() {
         >
           <h1>{snippet.title}</h1>
           <Link href={`/snippet/${snippet.id}`}>
-            <Button variant={'link'}>View</Button>
+            <Button variant={"link"}>View</Button>
           </Link>
         </div>
       ))}
