@@ -11,6 +11,8 @@ type SnippetDetailsProps = {
 const page: React.FC<SnippetDetailsProps> = async ({ params }) => {
   const id = parseInt((await params).id);
 
+  await new Promise((r) => setTimeout(r, 2000));
+
   const snippet = await prisma.snippet.findUnique({
     where: {
       id,
@@ -44,3 +46,10 @@ const page: React.FC<SnippetDetailsProps> = async ({ params }) => {
 };
 
 export default page;
+
+export const generateStaticParams = async () => {
+  const snippets = await prisma.snippet.findMany();
+  return snippets.map((snippet) => {
+    return { id: snippet.id.toString() };
+  });
+};
